@@ -29,8 +29,11 @@ Both LoRA and Frozen Encoder strategies achieve **~3.4 nT RMSE**, which is **com
 |----------|-----------------|-----------|-------------|-----------|--------------|---------------|
 | **Frozen Encoder** ⭐ | **0.66M (0.34%)** | **3.39 ± 2.24 nT** | **2.57 nT** | 0.61 nT | 55/57 (96.5%) | ~17 hours |
 | **LoRA** | 2.3M (1.19%) | 3.40 ± 2.24 nT | 2.88 nT | **0.38 nT** | 55/57 (96.5%) | ~19 hours |
+| **Full Fine-tuning** | 391M (100%) | _In Progress_ | _In Progress_ | - | - | ~25 hours (est.) |
 
 **🏆 Winner: Frozen Encoder** - Statistically equivalent performance with **3.5× better parameter efficiency**
+
+**Note**: Full Fine-tuning strategy is currently being implemented to provide a complete three-strategy comparison.
 
 ### Detailed Performance Breakdown
 
@@ -450,34 +453,15 @@ Each `lofo_results.csv` contains:
 
 ---
 
-## ❓ Why Skip Full Fine-tuning?
+## 🔬 Ongoing Work
 
-Initially, we planned to train three strategies (LoRA, Frozen, Full Fine-tuning). After completing LoRA and Frozen Encoder, we made the scientific decision to **skip Full Fine-tuning** for the following reasons:
+### Full Fine-tuning Strategy
+Currently implementing the Full Fine-tuning strategy to complete the three-strategy comparison. This approach trains all 391M parameters of the Surya model and will provide insights into whether complete model adaptation offers benefits over parameter-efficient methods (LoRA and Frozen Encoder) for this forecasting task.
 
-### 1. Overfitting Risk ⚠️
-With only **48 training samples per fold**, training all 391M parameters would likely result in severe overfitting rather than improved generalization.
-
-### 2. Occam's Razor Principle ✅
-The strong performance of simpler strategies (Frozen: 3.39 nT, LoRA: 3.40 nT) demonstrates that minimal adaptation is sufficient. Adding complexity is unlikely to improve results.
-
-### 3. Memory Limitations 💾
-Full fine-tuning encountered **GPU out-of-memory errors** at Fold 17/57 (exhausted 47.74 GB unified memory). Even with reduced batch size, completion would require 25-40 hours for marginal or negative benefit.
-
-### 4. Scientific Completeness ✅
-The two-strategy comparison provides clear conclusions:
-- Frozen Encoder is most parameter-efficient (3.5× better than LoRA)
-- Both achieve competitive performance with literature (2-6 nT baseline)
-- Results validate that Surya's pretrained features transfer excellently
-
-### 5. Literature Precedent 📚
-Transfer learning studies consistently show that **full fine-tuning with limited data underperforms** parameter-efficient methods (LoRA, frozen encoder) due to overfitting.
-
-### Predicted Outcome (if Full Fine-tuning were completed)
-Based on machine learning theory and empirical evidence:
-- **Best case**: Similar performance to LoRA/Frozen (3.3-3.5 nT)
-- **Likely case**: Worse performance due to overfitting (4-5 nT)
-- **Training cost**: 25-40 additional hours
-- **Scientific value**: Minimal (would only confirm expected overfitting)
+**Expected Characteristics**:
+- Trainable Parameters: 391M (100% of model)
+- Training Time: ~25 hours estimated
+- Computational Requirements: Higher memory usage due to training all parameters
 
 ---
 
@@ -524,15 +508,6 @@ This is a research project. For questions, bug reports, or collaboration opportu
 
 ---
 
-## 👥 Authors
-
-**Vineet Vora**
-Graduate Student, Department of Physics
-New Jersey Institute of Technology
-Email: vv527@njit.edu
-
----
-
 ## 🙏 Acknowledgments
 
 - **Surya Team** (Yijun Zhu et al.) for the foundation model and pretrained weights
@@ -555,34 +530,6 @@ Email: vv527@njit.edu
 New Jersey Institute of Technology
 Department of Physics
 Newark, NJ 07102
-
----
-
-## 📊 Project Status
-
-✅ **Research Complete** - LoRA and Frozen Encoder strategies fully trained and evaluated
-📝 **Paper in Preparation** - Manuscript being drafted for publication
-🔬 **Results Validated** - Comprehensive comparison confirms Frozen Encoder as optimal strategy
-
-**Last Updated**: January 19, 2026
-
----
-
-## 🎯 Future Work
-
-1. **Per-Horizon Analysis**: Break down performance by T+24h, T+48h, T+72h to identify which horizon is most predictable
-
-2. **Feature Attribution**: Use attention visualization to understand which SDO channels contribute most to predictions
-
-3. **Event Classification**: Investigate why certain flares (Fold 33, 19, 54) are consistently difficult to predict
-
-4. **Full Resolution**: Train on 4096×4096 resolution using cluster GPU to assess if higher resolution improves RMSE
-
-5. **Operational Deployment**: Package Frozen Encoder model for real-time space weather forecasting
-
-6. **Extended Horizons**: Explore T+4d, T+5d predictions to understand maximum predictability horizon
-
-7. **Ensemble Methods**: Combine LoRA and Frozen predictions for potentially improved accuracy
 
 ---
 
