@@ -10,7 +10,7 @@ Transfer learning from the Surya solar foundation model for multi-day Interplane
 
 ## 🎯 Project Overview
 
-This project demonstrates successful transfer learning from the [Surya foundation model](https://github.com/yjzhu-solar/Surya) (366M parameters, pretrained on SDO full-disk solar imagery) to forecast IMF Bz values at **1-3 day horizons** (T+24h, T+48h, T+72h) using Solar Dynamics Observatory (SDO) observations.
+This project demonstrates successful transfer learning from the Surya foundation model (366M parameters, pretrained on SDO full-disk solar imagery) to forecast IMF Bz values at **1-3 day horizons** (T+24h, T+48h, T+72h) using Solar Dynamics Observatory (SDO) observations.
 
 ### Key Achievement
 Both LoRA and Frozen Encoder strategies achieve **~3.4 nT RMSE**, which is **competitive with published literature** (typical baseline: 2-6 nT for similar multi-day forecasting horizons).
