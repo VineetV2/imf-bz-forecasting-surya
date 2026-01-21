@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 
 # Load both results
-lora_results = pd.read_csv('lofo_results/lora_20260109_153102/lofo_results.csv')
-frozen_results = pd.read_csv('lofo_results/frozen_20260114_235000/lofo_results.csv')
+lora_results = pd.read_csv('results/lora_results.csv')
+frozen_results = pd.read_csv('results/frozen_results.csv')
 
 # Filter out empty datasets
 lora_valid = lora_results[lora_results['error'] != 'Empty dataset'].copy()

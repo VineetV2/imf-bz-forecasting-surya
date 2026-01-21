@@ -193,49 +193,27 @@ Both strategies show **identical standard deviation** (2.24 nT), indicating simi
 
 ```
 bz_forecasting_complete/
-├── README.md                       # This file - comprehensive documentation
-├── progress_email_final.txt        # Detailed progress report
+├── README.md                       # Complete project documentation
 ├── requirements.txt                # Python dependencies
-├── .gitignore                      # Git ignore rules (excludes large files)
+├── .gitignore                      # Git configuration
+│
+├── train_lofo.py                   # Main LOFO training script
+├── compare_lora_frozen.py          # Results comparison analysis
+│
+├── models/                         # Model implementations
+│   ├── __init__.py
+│   └── bz_models.py               # All transfer learning strategies
 │
 ├── configs/                        # Training configurations
 │   ├── config_lora.yaml           # LoRA training config
-│   ├── config_frozen.yaml         # Frozen Encoder config
-│   └── config_full.yaml           # Full Fine-tuning (not used)
+│   └── config_frozen.yaml         # Frozen Encoder config
 │
-├── models/                         # Model implementations
-│   ├── bz_models.py               # All transfer learning strategies
-│   ├── lora.py                    # LoRA implementation
-│   └── __init__.py
-│
-├── utils/                          # Utility functions
-│   ├── dataset.py                 # SDO-OMNI dataset class
-│   ├── metrics.py                 # Evaluation metrics
-│   └── __init__.py
-│
-├── lofo_results/                   # LOFO training results
-│   ├── lora_20260109_153102/
-│   │   └── lofo_results.csv       # LoRA fold-by-fold results (55 folds)
-│   └── frozen_20260114_235000/
-│       └── lofo_results.csv       # Frozen Encoder results (55 folds)
-│
-├── train_lofo.py                   # Main LOFO training script
-├── compare_lora_frozen.py          # Strategy comparison analysis
-│
-├── data/                           # Data directory (not in git)
-│   ├── sdo_train.csv              # Training flare timestamps
-│   ├── sdo_val.csv                # Validation timestamps
-│   ├── sdo_test.csv               # Test timestamps
-│   ├── sdo_files/                 # SDO observations (not in git - 12GB)
-│   └── omni_data/                 # OMNI Bz measurements (not in git)
-│       └── omni_bz_2011-01-01_to_2019-12-31.csv
-│
-└── checkpoints/                    # Model checkpoints (not in git - 11GB)
-    ├── lora_adapter/              # LoRA checkpoints (55 folds)
-    └── frozen_encoder/            # Frozen Encoder checkpoints (55 folds)
+└── results/                        # Final LOFO results
+    ├── lora_results.csv           # LoRA fold-by-fold results (55 folds)
+    └── frozen_results.csv         # Frozen Encoder results (55 folds)
 ```
 
-**Note**: Large files (data, checkpoints, LOFO fold results) are excluded from the repository via `.gitignore` due to GitHub size limits. Only result summaries (CSVs) are included.
+**Note**: Data files and model checkpoints are excluded from the repository via `.gitignore` due to size constraints. Only result summaries are included.
 
 ---
 
