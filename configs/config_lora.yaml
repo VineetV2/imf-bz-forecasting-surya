@@ -1,0 +1,75 @@
+# Configuration for LoRA Strategy
+# Parameter-efficient fine-tuning with Low-Rank Adaptation
+
+experiment_name: "surya_bz_lora"
+strategy: "lora"
+
+# Data paths
+omni_bz_csv: "./data/omni_data/omni_bz_2011-01-01_to_2019-12-31.csv"
+sdo_train_csv: "./data/sdo_train.csv"
+sdo_val_csv: "./data/sdo_val.csv"
+sdo_test_csv: "./data/sdo_test.csv"
+sdo_data_dir: "./data/sdo_files"
+
+# Dataset settings
+forecast_horizons: [24, 48, 72]  # Predict Bz at 24h, 48h, 72h ahead (1-3 days)
+simple_dataset: false  # Set to false when using real SDO data
+#num_train_samples: 5000
+#num_val_samples: 1000
+#num_test_samples: 500
+sdo_shape: [13, 512, 512]
+
+# Model configuration (adapted for 512x512 resolution)
+surya_config:
+  img_size: 512  # Match actual data resolution (512x512)
+  patch_size: 16
+  in_chans: 13
+  embed_dim: 1280  # From pretrained model
+  depth: 10  # From pretrained model
+  num_heads: 16  # From pretrained model
+  mlp_ratio: 4.0
+  drop_rate: 0.0
+  n_spectral_blocks: 2
+  window_size: 2
+  dp_rank: 4
+  time_embedding:
+    type: "linear"
+    time_dim: 1  # Single timestamp input
+
+# Pretrained Surya weights (REQUIRED for transfer learning)
+surya_checkpoint: "../data/Surya-1.0/surya.366m.v1.pt"
+
+# LoRA hyperparameters
+lora_r: 8  # Rank of low-rank matrices
+lora_alpha: 16  # Scaling factor
+lora_dropout: 0.1
+
+# Prediction head configuration
+prediction_head_config:
+  hidden_dims: [512, 256]
+  dropout: 0.2
+
+# Training hyperparameters
+batch_size: 8  # Increased for 512x512 resolution (less memory than 4096x4096)
+num_epochs: 40  # For standard training
+lofo_epochs: 10  # Reduced epochs for LOFO (58 folds × 10 epochs)
+learning_rate: 2.0e-4
+weight_decay: 1.0e-5
+num_workers: 0
+
+# Checkpointing
+checkpoint_dir: "./checkpoints/lora"
+
+# Logging
+use_wandb: false
+wandb_project: "surya-bz-forecasting"
+
+# Device
+# auto-detected: cuda > mps > cpu
+
+# Notes:
+# - LoRA rank (r): Lower = fewer params, faster training, but may limit capacity
+#   Typical range: 4-16
+# - LoRA alpha: Controls importance of LoRA updates relative to base model
+#   Rule of thumb: alpha = 2 * r
+# - Trainable parameters: ~1-5% of full model (very efficient!)

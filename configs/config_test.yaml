@@ -1,0 +1,36 @@
+experiment_name: "test_run"
+strategy: "lora"
+omni_bz_csv: "./data/omni_data/omni_bz_2014-01-01_to_2015-12-31.csv"
+forecast_hours: 6
+simple_dataset: true
+num_train_samples: 50
+num_val_samples: 10
+sdo_shape: [13, 256, 256]
+surya_config:
+  img_size: 256
+  patch_size: 16
+  in_chans: 13
+  embed_dim: 384
+  depth: 4
+  num_heads: 6
+  mlp_ratio: 4.0
+  drop_rate: 0.0
+  n_spectral_blocks: 2
+  window_size: 2
+  dp_rank: 4
+  time_embedding:
+    type: "linear"
+    time_dim: 1
+lora_r: 4
+lora_alpha: 8
+lora_dropout: 0.1
+prediction_head_config:
+  hidden_dims: [256, 128]
+  dropout: 0.2
+batch_size: 4
+num_epochs: 2
+learning_rate: 1.0e-3
+weight_decay: 1.0e-5
+num_workers: 0
+checkpoint_dir: "./checkpoints/test"
+use_wandb: false
