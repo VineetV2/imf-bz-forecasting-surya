@@ -27,13 +27,11 @@ Both LoRA and Frozen Encoder strategies achieve **~3.4 nT RMSE**, which is **com
 
 | Strategy | Trainable Params | Mean RMSE | Median RMSE | Best RMSE | Success Rate | Training Time |
 |----------|-----------------|-----------|-------------|-----------|--------------|---------------|
-| **Frozen Encoder** ⭐ | **0.66M (0.34%)** | **3.39 ± 2.24 nT** | **2.57 nT** | 0.61 nT | 55/57 (96.5%) | ~17 hours |
+| **Frozen Encoder** | **0.66M (0.34%)** | **3.39 ± 2.24 nT** | **2.57 nT** | 0.61 nT | 55/57 (96.5%) | ~17 hours |
 | **LoRA** | 2.3M (1.19%) | 3.40 ± 2.24 nT | 2.88 nT | **0.38 nT** | 55/57 (96.5%) | ~19 hours |
 | **Full Fine-tuning** | 391M (100%) | _In Progress_ | _In Progress_ | - | - | ~25 hours (est.) |
 
-**🏆 Winner: Frozen Encoder** - Statistically equivalent performance with **3.5× better parameter efficiency**
-
-**Note**: Full Fine-tuning strategy is currently being implemented to provide a complete three-strategy comparison.
+**Note**: Comprehensive comparison of three transfer learning strategies for IMF Bz forecasting. Full Fine-tuning results will complete the evaluation.
 
 ### Detailed Performance Breakdown
 
@@ -137,7 +135,7 @@ Both strategies show **identical standard deviation** (2.24 nT), indicating simi
 
 ### Transfer Learning Strategies
 
-#### 1. Frozen Encoder Strategy (RECOMMENDED ⭐)
+#### 1. Frozen Encoder Strategy
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  Surya Encoder (191M params)                            │  ← FROZEN
@@ -279,7 +277,7 @@ Organize data as specified in `configs/*.yaml`:
 
 ### Training with LOFO Cross-Validation
 
-#### Frozen Encoder (Recommended ⭐)
+#### Frozen Encoder
 ```bash
 python train_lofo.py \
   --config configs/config_frozen.yaml \
