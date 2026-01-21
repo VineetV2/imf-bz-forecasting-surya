@@ -526,8 +526,6 @@ MIT License - See [LICENSE](LICENSE) file for details.
 
 **Institution**:
 New Jersey Institute of Technology
-Department of Physics
-Newark, NJ 07102
 
 ---
 
