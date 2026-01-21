@@ -502,7 +502,7 @@ This is a research project. For questions, bug reports, or collaboration opportu
 
 ## 📄 License
 
-[Specify license - e.g., MIT, Apache 2.0, GPL-3.0]
+MIT License - See [LICENSE](LICENSE) file for details.
 
 ---
 
